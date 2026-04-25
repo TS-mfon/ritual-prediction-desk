@@ -1,0 +1,17 @@
+node_modules
+.next
+dist
+coverage
+out
+artifacts
+cache
+package-lock.json
+.env
+.env.local
+.codex
+.vercel
+.ritual-build
+packages/contracts/broadcast
+packages/contracts/cache
+packages/contracts/out
+packages/contracts/lib

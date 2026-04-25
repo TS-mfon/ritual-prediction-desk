@@ -1,0 +1,87 @@
+import type { DeskSnapshot } from "./types";
+
+export const demoDesk: DeskSnapshot = {
+  headline: "Ritual-native advisory desk for autonomous prediction-market research.",
+  policy: {
+    owner: "0x9F4C...B7A2",
+    vaultAddress: "0xD35K...FE09",
+    baseAsset: "RITUAL",
+    maxNotional: "125 RITUAL",
+    requireApproval: true,
+    topicAllowlist: ["Macro releases", "Protocol governance", "Election events"],
+    venuePolicy: "ritual-native",
+  },
+  topics: [
+    {
+      id: "macro-cpi",
+      label: "Macro releases",
+      cadence: "Every 720 blocks",
+      source: "https://api.example.com/releases",
+      secretMode: "delegated",
+    },
+    {
+      id: "governance-watch",
+      label: "Protocol governance",
+      cadence: "Every 360 blocks",
+      source: "https://api.example.com/governance",
+      secretMode: "public",
+    },
+  ],
+  recommendations: [
+    {
+      id: "rec-001",
+      status: "queued",
+      title: "Open a CPI surprise market with capped liquidity",
+      marketType: "prediction",
+      confidenceBps: 7420,
+      maxNotional: "40 RITUAL",
+      rationale: "TEE-backed news aggregation saw concentrated coverage around a surprise print and weak liquidity depth.",
+      supportingEvidence: ["Bloomberg macro feed", "FOMC calendar feed", "onchain liquidity snapshot"],
+      riskTags: ["macro", "liquidity"],
+      createdAt: "2026-04-25T09:10:00Z",
+      expiresAt: "2026-04-25T15:10:00Z",
+      draftDigest: "0x7e16ab2ce1490c7f7bf327cc2135d4e6f287947d624e92d15ab8f6f0dbe143ce",
+    },
+    {
+      id: "rec-002",
+      status: "approved",
+      title: "Seed governance-vote outcome market for Protocol X",
+      marketType: "prediction",
+      confidenceBps: 6810,
+      maxNotional: "25 RITUAL",
+      rationale: "Proposal discussion converged and whale addresses aligned with the same side over the past 24 hours.",
+      supportingEvidence: ["delegate forum scrape", "voting escrow state", "execution calendar"],
+      riskTags: ["governance"],
+      createdAt: "2026-04-25T07:40:00Z",
+      expiresAt: "2026-04-25T17:40:00Z",
+      draftDigest: "0x4e16ab2ce1490c7f7bf327cc2135d4e6f287947d624e92d15ab8f6f0dbe143cd",
+    },
+  ],
+  approvals: [
+    {
+      id: "apr-001",
+      action: "create_market",
+      recommendationId: "rec-001",
+      requestedBy: "PredictionDeskAgent",
+      createdAt: "2026-04-25T09:12:00Z",
+      maxNotional: "40 RITUAL",
+      status: "pending",
+    },
+  ],
+  receipts: [
+    {
+      txHash: "0x4f31e3c8ab6f9ffcced4dc0c29ed64170139b8a76861c9ba4d16765ab0ff1001",
+      executor: "0xAbC1...9001",
+      precompile: "HTTP 0x0801",
+      jobId: "0x8d5c5ec815f2102d33206d31ce3d25b89b0fdd5146ab2836ccfe1e2ca2ef0117",
+      status: "SETTLED",
+    },
+    {
+      txHash: "0x4f31e3c8ab6f9ffcced4dc0c29ed64170139b8a76861c9ba4d16765ab0ff1002",
+      executor: "0xAbC1...9002",
+      precompile: "LLM 0x0802",
+      jobId: "0x1d5c5ec815f2102d33206d31ce3d25b89b0fdd5146ab2836ccfe1e2ca2ef0999",
+      status: "EXECUTOR_PROCESSING",
+    },
+  ],
+};
