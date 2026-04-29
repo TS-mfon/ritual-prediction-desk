@@ -3,7 +3,7 @@ import { Providers } from "./providers";
 
 export const metadata = {
   title: "Ritual Prediction Desk",
-  description: "Autonomous prediction-market research and approvals on Ritual.",
+  description: "Industrial agent operations for Ritual-native work and approvals.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
