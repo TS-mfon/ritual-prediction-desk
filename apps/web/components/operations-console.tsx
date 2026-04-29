@@ -9,6 +9,7 @@ import {
   ClipboardList,
   Factory,
   HelpCircle,
+  Info,
   Plus,
   RadioTower,
   ShieldCheck,
@@ -157,8 +158,8 @@ export function OperationsConsole() {
         <div className="brand-mark">
           <div className="brand-icon">R</div>
           <div>
-            <strong>Ritual Desk</strong>
-            <span>Agent operations</span>
+            <strong>RitualAgentOS</strong>
+            <span>Autonomous work desk</span>
           </div>
         </div>
 
@@ -350,21 +351,30 @@ function Agents({ state, setState }: { state: AppState; setState: React.Dispatch
   return (
     <div className="content-grid">
       <FormPanel title="Agent profile" description="Register operators" onSubmit={submit}>
-        <Field label="Name" value={form.name} onChange={(name) => setForm({ ...form, name })} placeholder="Alpha Desk" />
+        <Field
+          label="Name"
+          help="Public name shown for this agent profile."
+          value={form.name}
+          onChange={(name) => setForm({ ...form, name })}
+          placeholder="Alpha Desk"
+        />
         <Field
           label="Skill"
+          help="Primary capability users hire this agent to perform."
           value={form.specialty}
           onChange={(specialty) => setForm({ ...form, specialty })}
           placeholder="Market research"
         />
         <Field
           label="Endpoint"
+          help="Optional service URL or webhook controlled by the agent."
           value={form.endpoint}
           onChange={(endpoint) => setForm({ ...form, endpoint })}
           placeholder="https://..."
         />
         <Field
           label="Risk limit"
+          help="Maximum budget this agent should be allowed to manage."
           value={form.riskLimit}
           onChange={(riskLimit) => setForm({ ...form, riskLimit })}
           placeholder="50 RITUAL"
@@ -420,11 +430,29 @@ function Work({ state, setState }: { state: AppState; setState: React.Dispatch<R
   return (
     <div className="content-grid">
       <FormPanel title="Work order" description="Create paid work" onSubmit={submit}>
-        <Field label="Title" value={form.title} onChange={(title) => setForm({ ...form, title })} placeholder="Research CPI market" />
-        <Field label="Budget" value={form.budget} onChange={(budget) => setForm({ ...form, budget })} placeholder="25 RITUAL" />
-        <Field label="Deadline" value={form.deadline} onChange={(deadline) => setForm({ ...form, deadline })} placeholder="2026-05-01" />
+        <Field
+          label="Title"
+          help="Short work-order name users can scan quickly."
+          value={form.title}
+          onChange={(title) => setForm({ ...form, title })}
+          placeholder="Research CPI market"
+        />
+        <Field
+          label="Budget"
+          help="Amount reserved for the task payout or escrow."
+          value={form.budget}
+          onChange={(budget) => setForm({ ...form, budget })}
+          placeholder="25 RITUAL"
+        />
+        <Field
+          label="Deadline"
+          help="Target delivery date or execution window."
+          value={form.deadline}
+          onChange={(deadline) => setForm({ ...form, deadline })}
+          placeholder="2026-05-01"
+        />
         <label className="field">
-          <span>Agent</span>
+          <LabelWithHelp label="Agent" help="Registered operator assigned to complete this job." />
           <select value={form.assignedAgent} onChange={(event) => setForm({ ...form, assignedAgent: event.target.value })}>
             <option value="">Unassigned</option>
             {state.agents.map((agent) => (
@@ -435,7 +463,7 @@ function Work({ state, setState }: { state: AppState; setState: React.Dispatch<R
           </select>
         </label>
         <label className="field span-full">
-          <span>Brief</span>
+          <LabelWithHelp label="Brief" help="Task instructions, required evidence, and expected output." />
           <textarea
             value={form.brief}
             onChange={(event) => setForm({ ...form, brief: event.target.value })}
@@ -482,9 +510,27 @@ function Markets({ state, setState }: { state: AppState; setState: React.Dispatc
   return (
     <div className="content-grid">
       <FormPanel title="Market feed" description="Track live events" onSubmit={submit}>
-        <Field label="Topic" value={form.title} onChange={(title) => setForm({ ...form, title })} placeholder="Fed decision" />
-        <Field label="Source" value={form.source} onChange={(source) => setForm({ ...form, source })} placeholder="https://..." />
-        <Field label="Cadence" value={form.cadence} onChange={(cadence) => setForm({ ...form, cadence })} placeholder="Hourly" />
+        <Field
+          label="Topic"
+          help="Market, event, or signal the agent should monitor."
+          value={form.title}
+          onChange={(title) => setForm({ ...form, title })}
+          placeholder="Fed decision"
+        />
+        <Field
+          label="Source"
+          help="API, feed, URL, or reference source for this topic."
+          value={form.source}
+          onChange={(source) => setForm({ ...form, source })}
+          placeholder="https://..."
+        />
+        <Field
+          label="Cadence"
+          help="How often the agent should refresh or review the feed."
+          value={form.cadence}
+          onChange={(cadence) => setForm({ ...form, cadence })}
+          placeholder="Hourly"
+        />
         <button className="button primary" type="submit">
           <RadioTower size={16} />
           Add topic
@@ -596,20 +642,36 @@ function RecordsPanel({
 
 function Field({
   label,
+  help,
   value,
   onChange,
   placeholder,
 }: {
   label: string;
+  help: string;
   value: string;
   onChange: (value: string) => void;
   placeholder: string;
 }) {
   return (
     <label className="field">
-      <span>{label}</span>
+      <LabelWithHelp label={label} help={help} />
       <input value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} />
     </label>
+  );
+}
+
+function LabelWithHelp({ label, help }: { label: string; help: string }) {
+  return (
+    <span className="field-label">
+      {label}
+      <span className="field-help" tabIndex={0} aria-label={`${label}: ${help}`}>
+        <Info size={13} aria-hidden="true" />
+        <span className="tooltip" role="tooltip">
+          {help}
+        </span>
+      </span>
+    </span>
   );
 }
 
